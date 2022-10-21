@@ -1,0 +1,46 @@
+{
+  "include": ["main"],
+  "exclude": [
+    "node_modules",
+    "main/src/stories",
+    "main/src/test-app",
+    "dist"
+  ],
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "target": "es5",
+    "module": "commonjs",
+    "baseUrl": "./main/src",
+    "outDir": "dist", // Types should go into this directory. Removing this would place the .d.ts files next to the .js files
+    "declaration": true, // Generate d.ts files,
+    "declarationMap": true, // go to js file when using IDE functions like Go to Definition in VSCode,
+    "sourceMap": true,
+    "jsx": "react-jsx",
+    "noEmit": false,
+    "allowJs": true, // Tells TypeScript to read JS files, as normally they are ignored as source files. Process & infer types from .js files.,
+    "paths": {
+      "@/*": ["./*"],
+      "@lib/*": ["./lib/*"],
+      "@components/*": ["./lib/components/*"]
+    },
+    // Note: To transform paths for both the output .js and .d.ts files, you need both of the below entries
+    "plugins": [
+      // Transform paths in output .js files
+      { "transform": "typescript-transform-paths" },
+
+      // Transform paths in output .d.ts files (Include this line if you output declarations files)
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ],
+    "moduleResolution": "node", // Search under node_modules for non-relative imports.,
+    "skipLibCheck": true, // Import non-ES modules as default imports.
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true, // Enable strict settings like strictNullChecks & noImplicitAny.
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  }
+}
