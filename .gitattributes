@@ -1,0 +1,22 @@
+# Handle line endings automatically for files detected as text
+# and leave all files detected as binary untouched.
+* text=auto
+#
+# The above will handle all files NOT found below
+#
+
+#
+## These files are text and should be normalized (Convert crlf => lf)
+#
+# source code
+*.json text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.ts text eol=lf
+*.jsx text eol=lf
+*.css text eol=lf
+*.sass text eol=lf
+*.md text eol=lf
+*.config text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
