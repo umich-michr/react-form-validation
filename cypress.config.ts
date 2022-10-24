@@ -2,15 +2,19 @@
 import {defineConfig} from 'cypress';
 import {default as find} from 'find-process';
 import {default as webpackConfigComponentTests} from './webpack.dev.config.js';
+import registerCodeCoverageTasks from '@cypress/code-coverage/task';
 import PluginEvents = Cypress.PluginEvents;
 import BeforeRunDetails = Cypress.BeforeRunDetails;
+import PluginConfigOptions = Cypress.PluginConfigOptions;
 //as of 06/13/2022 react component testing using webpack dev server with https was not working.
 // noinspection JSUnresolvedVariable
 webpackConfigComponentTests.devServer['server'] = 'http';
 
-function setupNodeEvents(on: PluginEvents /*, config*/) {
+function setupNodeEvents(on: PluginEvents, config: PluginConfigOptions) {
   let devServerPID: number;
   on('before:run', (details: BeforeRunDetails) => {
+    registerCodeCoverageTasks(on, config);
+
     find('port', 3001).then(function (list) {
       if (!list.length) {
         console.debug('port 3001 is free now');
@@ -37,6 +41,12 @@ function setupNodeEvents(on: PluginEvents /*, config*/) {
 }
 
 export default defineConfig({
+  env: {
+    coverage: true,
+    codeCoverage: {
+      exclude: ['test/**/*.*']
+    }
+  },
   component: {
     specPattern: 'test/src/cypress/components/*.cy.{ts,tsx}',
     supportFile: 'test/src/cypress/support/component.ts',

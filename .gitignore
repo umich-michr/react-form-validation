@@ -9,8 +9,6 @@ yarn-error.log*
 **/*.backup.*
 **/*.back.*
 
-lib
-lib-esm
 _bundles
 dist/
 build/
