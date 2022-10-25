@@ -6,7 +6,7 @@ orbs:
 jobs:
   build-and-test:
     docker:
-      - image: cimg/node:18.11
+      - image: cimg/node:18.11.0-browsers
     steps:
       - checkout
       - node/install-packages:
