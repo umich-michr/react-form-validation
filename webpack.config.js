@@ -6,7 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const sharedConfig = require('./webpack.shared');
 
 const PATHS = {
-  entryPoint: path.resolve(__dirname, '.main/src/lib/index.ts'),
+  entryPoint: path.resolve(__dirname, 'main/src/lib/index.ts'),
   bundles: path.resolve(__dirname, './dist'),
   tsConfigPath: path.resolve(__dirname, './tsconfig.json')
 };

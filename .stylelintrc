@@ -3,5 +3,8 @@
   "extends": ["stylelint-config-prettier","stylelint-config-standard-scss","stylelint-config-prettier-scss"],
   "rules": {
     "prettier/prettier": true
-  }
+  },
+  "ignoreFiles": [
+    "build/**", "dist/**"
+  ]
 }

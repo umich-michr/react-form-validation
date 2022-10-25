@@ -6,16 +6,12 @@
   "report-dir": "build/cypress-coverage",
   "extension": [".ts", ".tsx"],
   "exclude": [
-    ".storybook/**",
+    "main/src/test-app/**",
+    "main/src/lib/test-components/**",
     "coverage/**",
-    "packages/*/test{,s}/**",
     "**/*.d.ts",
     "test{,s}/**",
     "**/__tests__/**",
-    "**/{ava,babel,nyc}.config.{js,cjs,mjs}",
-    "**/jest.config.{js,cjs,mjs,ts}",
-    "**/{karma,rollup,webpack}.config.js",
-    "**/.{eslint,mocha}rc.{js,cjs}",
     "**/*.spec.{js,cjs,mjs,ts}",
     "**/*.test.{js,cjs,mjs,ts}",
     "**/*.cy.{js,cjs,mjs,ts}"

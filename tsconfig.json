@@ -11,7 +11,7 @@
     "noUnusedParameters": false,
     "target": "es5",
     "module": "commonjs",
-    "baseUrl": "./main/src",
+    "baseUrl": "main/src",
     "outDir": "dist", // Types should go into this directory. Removing this would place the .d.ts files next to the .js files
     "declaration": true, // Generate d.ts files,
     "declarationMap": true, // go to js file when using IDE functions like Go to Definition in VSCode,

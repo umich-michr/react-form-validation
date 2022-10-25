@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {defineConfig} from 'cypress';
-import {default as find} from 'find-process';
-import {default as webpackConfigComponentTests} from './webpack.dev.config.js';
+import find from 'find-process';
+import webpackConfigComponentTests from './webpack.dev.config.js';
 import registerCodeCoverageTasks from '@cypress/code-coverage/task';
 import PluginEvents = Cypress.PluginEvents;
 import BeforeRunDetails = Cypress.BeforeRunDetails;
@@ -11,15 +11,18 @@ import PluginConfigOptions = Cypress.PluginConfigOptions;
 webpackConfigComponentTests.devServer['server'] = 'http';
 
 function setupNodeEvents(on: PluginEvents, config: PluginConfigOptions) {
+  registerCodeCoverageTasks(on, config);
   let devServerPID: number;
   on('before:run', (details: BeforeRunDetails) => {
-    registerCodeCoverageTasks(on, config);
-
-    find('port', 3001).then(function (list) {
+    find('port', webpackConfigComponentTests.devServer.port).then(function (list) {
       if (!list.length) {
-        console.debug('port 3001 is free now');
+        console.debug(`port ${webpackConfigComponentTests.devServer.port} is free now`);
       } else {
-        console.debug('%s is listening port 3001 with PID %s', list[0].name, list[0].pid);
+        console.debug(
+          `%s is listening port ${webpackConfigComponentTests.devServer.port} with PID %s`,
+          list[0].name,
+          list[0].pid
+        );
         devServerPID = list[0].pid;
       }
     });
@@ -28,7 +31,6 @@ function setupNodeEvents(on: PluginEvents, config: PluginConfigOptions) {
       console.debug('Running', details.specs.length, 'specs in', details.browser.name);
     }
   });
-
   on('after:run', (results: CypressCommandLine.CypressRunResult | CypressCommandLine.CypressFailedRunResult) => {
     if (results) {
       // results will be undefined in interactive mode
@@ -38,15 +40,21 @@ function setupNodeEvents(on: PluginEvents, config: PluginConfigOptions) {
       process.kill(devServerPID, 'SIGINT');
     }
   });
+  return config;
 }
 
 export default defineConfig({
+  downloadsFolder: 'build/cypress/downloads',
+  fixturesFolder: 'test/src/cypress/fixtures',
+  screenshotsFolder: 'build/cypress/screenshots',
+  videosFolder: 'build/cypress/videos',
   env: {
     coverage: true,
     codeCoverage: {
       exclude: ['test/**/*.*']
     }
   },
+  video: false,
   component: {
     specPattern: 'test/src/cypress/components/*.cy.{ts,tsx}',
     supportFile: 'test/src/cypress/support/component.ts',

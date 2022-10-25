@@ -118,7 +118,7 @@ describe('Feature: Validated form component should be able to validate component
   };
 
   describe('Scenario: Submit Form with validated components', () => {
-    it.only(`Given form contains an <input/> element with email validation rule
+    it(`Given form contains an <input/> element with email validation rule
       And <select/> element with a required validation rule
       And react-select element with a required validation rule
       And <textarea/> element with a maxLength validation rule
