@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/umich-michr/react-form-validation/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/umich-michr/react-form-validation/tree/main)
+
 ### ESLint Dependencies
 
 eslint-config-prettier: Turns off all ESLint rules that have the potential to interfere with Prettier rules.
