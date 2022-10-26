@@ -55,6 +55,11 @@ export default defineConfig({
     }
   },
   video: false,
+  reporter: 'junit',
+  reporterOptions: {
+    mochaFile: 'build/cypress-junit/test-output.xml',
+    toConsole: true
+  },
   component: {
     specPattern: 'test/src/cypress/components/*.cy.{ts,tsx}',
     supportFile: 'test/src/cypress/support/component.ts',

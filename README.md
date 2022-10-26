@@ -1,5 +1,16 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/umich-michr/react-form-validation/tree/main.svg?style=svg&circle-token=d73be01f2005694dfb3f93dd5720acea56fa1878)](https://dl.circleci.com/status-badge/redirect/gh/umich-michr/react-form-validation/tree/main)
 
+### Commit Messages
+
+[commitizen](https://github.com/commitizen/cz-cli), [cz-git](https://cz-git.qbb.sh) are used to prompt for commit message entry following [Angular commit specification](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits) which is based on [conventional commits](https://www.conventionalcommits.org).
+[commitlint](https://commitlint.js.org) using [husky](https://typicode.github.io/husky) generated git hooks make sure that the commit message format follows Angular commit spec specified by cz-git.
+```shell
+npx cz
+```
+command brings the commit message prompt to avoid making mistakes in writing commit messages and commitlint makes sure the final commit message follows the rules.
+
+However, our old commit message convention was simpler and better fit for our use. If we like to customize the commit message prompt to match our style then most probably we can't rely on commitzen since customizing its prompt requires use of an adapter which will be another dependency. [cz-customizable](https://github.com/leoforfree/cz-customizable) cz-git seemed to be easier to customize and more popular at the time of this writing.
+
 ### ESLint Dependencies
 
 eslint-config-prettier: Turns off all ESLint rules that have the potential to interfere with Prettier rules.
