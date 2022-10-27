@@ -2,6 +2,9 @@ main: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/umich-michr/react
 
 change by test branch, submitted as pull reqeust.
 another change by test branch not submitted as pull request.
+change by bug#1 and would like this change to go to main.
+change by feature#1 and would like this change to go to main. (This is after test submitted a PR and changed on top of that)
+another change on test
 
 ### Commit Messages
 
