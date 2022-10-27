@@ -27,6 +27,6 @@ workflows:
     jobs:
       - build-and-test:
           filters:
-          branches:
-          ignore:
-          - main
+            branches:
+              ignore:
+                - main
