@@ -1,7 +1,6 @@
 main: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/umich-michr/react-form-validation/tree/main.svg?style=svg&circle-token=d73be01f2005694dfb3f93dd5720acea56fa1878)](https://dl.circleci.com/status-badge/redirect/gh/umich-michr/react-form-validation/tree/main)
 
-1st change by test branch, will submit PR for this
-2nd change by test branch, will push upstream before PR is done and closed but not submit a new PR
+deleted 2 lines from master 
 
 ### Commit Messages
 
