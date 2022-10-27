@@ -22,9 +22,9 @@
     "clean": "npx shx rm -rf dist .nyc_output build",
     "start": "npx webpack-dev-server --config webpack.dev.config.js --open",
     "build:esm": "npx tsc --outDir dist/lib-es5 && npx tsc -m es6 --outDir dist/lib-es6",
-    "prebuild": "npm run prettier && npm run lintjs && npm run stylelint && npm run clean",
+    "prebuild": "npm run prettier && npm run eslint && npm run stylelint && npm run clean",
     "build": "npm run build:esm && webpack",
-    "lintjs": "npx eslint \"main/**/*\"",
+    "eslint": "npx eslint \"main/**/*\"",
     "stylelint": "npx stylelint --allow-empty-input \"**/*.{css,scss,sass}\"",
     "prepare": "ts-patch install -s && husky install",
     "prettier": "npx prettier --write \"./main/**/*.{ts,tsx}\" \"./test/**/*.{ts,tsx}\""
