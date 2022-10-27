@@ -2,6 +2,7 @@ main: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/umich-michr/react
 
 change by feature#2
 
+
 ### Commit Messages
 
 [commitizen](https://github.com/commitizen/cz-cli), [cz-git](https://cz-git.qbb.sh) are used to prompt for commit message entry following [Angular commit specification](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits) which is based on [conventional commits](https://www.conventionalcommits.org).
