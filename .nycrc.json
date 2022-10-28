@@ -6,6 +6,7 @@
   "report-dir": "build/cypress-coverage",
   "extension": [".ts", ".tsx"],
   "exclude": [
+    "dist/**",
     "main/src/test-app/**",
     "main/src/lib/test-components/**",
     "coverage/**",

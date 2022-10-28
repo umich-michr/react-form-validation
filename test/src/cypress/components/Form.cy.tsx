@@ -1,7 +1,6 @@
 import {Form, withValidation} from '../../../../main/src/lib';
 import {FormEvent, LegacyRef, useRef, useState} from 'react';
 import {default as reactSelect} from 'react-select';
-import {Simulate} from 'react-dom/test-utils';
 
 describe('Feature: Validated form component should be able to handle components that are not validated. (HOC is not used to create validated components', () => {
   describe('Scenario: Submit form without validated components (no data validation rules).', () => {

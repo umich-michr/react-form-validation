@@ -1,4 +1,5 @@
 import {isEmpty, isTooLong, isEmail, ValueValidator} from './validationFunctions';
+import {WithValidationProps} from '@components/withValidation';
 /*
 Validation rule will be passed as JSX property for the component that will be validated within the form.
 const exampleValidationRule = {required:{value: true}, maxLength:{value:4}}
@@ -52,15 +53,22 @@ validations.set(
 );
 
 export default function validateField(
-  value: string | string[] | undefined | null | [{label: string; value: string}],
-  rules: ValidationRules
+  value: string | string[] | undefined | null | [Record<string, string | number>],
+  rules: ValidationRules,
+  valueSelector: WithValidationProps['valueSelector']
 ): string[] {
   const fieldErrors: string[] = [];
   let val: string | null | undefined | string[];
-  if (Array.isArray(value)) {
-    val = (value as [{label: string; value: string}]).filter((v) => !!v.value).flatMap((v) => v.value);
-  } else {
-    val = value;
+  if (valueSelector) {
+    if (Array.isArray(value)) {
+      val = (value as [Record<string, string | number>])
+        .filter((v) => !!valueSelector(v))
+        .flatMap((v) => valueSelector(v));
+    } else if (value && typeof value !== 'string') {
+      val = valueSelector(value);
+    } else {
+      val = value;
+    }
   }
   for (const [ruleName, {value: ruleValue}] of Object.entries(rules)) {
     try {

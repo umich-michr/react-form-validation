@@ -15,6 +15,7 @@ import FormContext from './FormValidationProvider';
 
 export interface WithValidationProps {
   name: string;
+  valueSelector?: (selectedValue: Record<string, string | number>) => string;
   dataValidationRules: ValidationRules;
 }
 type PropType = WithValidationProps & {value?: string; getValue?: () => string};
@@ -22,7 +23,7 @@ type PropType = WithValidationProps & {value?: string; getValue?: () => string};
 export default function withValidation<T extends ElementType>(Component: T | string) {
   const ValidatedComponent = forwardRef(
     (
-      {name, dataValidationRules, ...props}: ComponentPropsWithRef<T> & PropType,
+      {name, dataValidationRules, valueSelector, ...props}: ComponentPropsWithRef<T> & PropType,
       ref: ForwardedRef<{
         element: RefObject<any>;
         validate: (e: FormEvent<HTMLInputElement>) => void;
@@ -40,17 +41,17 @@ export default function withValidation<T extends ElementType>(Component: T | str
         } else if (element.current.getValue) {
           elementValue = element.current.getValue();
         }
-        return validate(name, elementValue, dataValidationRules);
+        return validate(name, elementValue, dataValidationRules, valueSelector);
       };
 
       const handleChange = (e: FormEvent<HTMLInputElement> & {value?: string}) => {
         let elementValue;
         if ('value' in e) {
           elementValue = e.value;
-        } else if ('value' in e.currentTarget) {
+        } else if (e.currentTarget && 'value' in e.currentTarget) {
           elementValue = e.currentTarget.value;
         }
-        return validate(name, elementValue, dataValidationRules);
+        return validate(name, elementValue, dataValidationRules, valueSelector);
       };
 
       useImperativeHandle(ref, () => ({
