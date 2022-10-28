@@ -7,9 +7,11 @@ const issue = execSync('git rev-parse --abbrev-ref HEAD')
   .split("#")[1];
 
 module.exports = {
+  extends: ['@commitlint/config-conventional'],
   rules: {
     // @see: https://commitlint.js.org/#/reference-rules
-    'references-empty': [2, 'never']
+    'references-empty': [2, 'never'],
+    'header-max-length': [2, "always", 500]
   },
   parserPreset: {
     parserOpts: {
@@ -24,6 +26,7 @@ module.exports = {
       customScope: 'Denote the SCOPE of this change:',
       subject: 'Write a SHORT, IMPERATIVE tense description of the change:\n',
       body: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n',
+      markBreaking: 'Is there any breaking changes?\n',
       breaking: 'List any BREAKING CHANGES (optional). Use "|" to break new line:\n',
       footerPrefixsSelect: 'Select the ISSUES type of changeList by this change (optional):',
       customFooterPrefixs: 'Input ISSUES prefix:',
@@ -46,26 +49,30 @@ module.exports = {
     useEmoji: false,
     emojiAlign: 'center',
     themeColorCode: '',
-    scopes: [],
+    scopes: ['form','validation-functions','HOC', 'unitTest', 'componentTest', 'projectSetup'],
+    enableMultipleScopes: true,
+    scopeEnumSeparator: ',',
     allowCustomScopes: false,
     allowEmptyScopes: true,
     customScopesAlign: 'bottom',
     customScopesAlias: 'custom',
     emptyScopesAlias: 'empty',
     upperCaseSubject: false,
-    markBreakingChangeMode: false,
+    markBreakingChangeMode: true,
     allowBreakingChanges: ['feat', 'fix'],
     breaklineNumber: 100,
     breaklineChar: '|',
-    skipQuestions: [],
-    issuePrefixs: [{ value: 'refs', name: 'references: References the issues (should provide comma separated ticket numbers prefixed with #)' }],
+    skipQuestions: ['breaking'],
+    issuePrefixs: [{ value: 'refs', name: 'references: References the issues (should provide comma separated ticket numbers prefixed with #)' },
+                   { value: 'closes', name: 'closes: Closes the issues (should provide comma separated ticket numbers prefixed with #)' }],
+    defaultFooterPrefix: "refs",
     customIssuePrefixsAlign: !issue ? "top" : "bottom",
     emptyIssuePrefixsAlias: 'skip',
     customIssuePrefixsAlias: 'custom',
-    allowCustomIssuePrefixs: true,
-    allowEmptyIssuePrefixs: true,
+    allowCustomIssuePrefixs: false,
+    allowEmptyIssuePrefixs: false,
     confirmColorize: true,
-    maxHeaderLength: 120,
+    maxHeaderLength: 500,
     maxSubjectLength: Infinity,
     minSubjectLength: 0,
     scopeOverrides: undefined,
@@ -73,5 +80,6 @@ module.exports = {
     defaultIssues: !issue ? "" : `#${issue}`,
     defaultScope: '',
     defaultSubject: ''
+    // @see https://cz-git.qbb.sh/config/engineer.html#formatmessagecb if you like to modify the commit message produced after responses to prompts are collected.
   }
 }

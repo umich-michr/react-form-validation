@@ -13,6 +13,7 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
+    "commit": "npx cz",
     "commitlint:last": "npx commitlint --from HEAD~1 --to HEAD --verbose",
     "test:cy:open": "npx cypress open",
     "test:cy:e2e:headless": "npm start -- --no-open & wait-on https-get://localhost:5001 && npx cypress run",
@@ -51,6 +52,7 @@
     "@babel/preset-env": "^7.19.4",
     "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.18.6",
+    "@commitlint/config-conventional": "^17.1.0",
     "@cypress/code-coverage": "^3.10.0",
     "@istanbuljs/nyc-config-babel": "^3.0.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
