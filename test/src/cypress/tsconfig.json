@@ -4,6 +4,12 @@
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"],
     "esModuleInterop": true,
+    "baseUrl": "../../../main/src",
+    "paths": {
+      "@/*": ["./*"],
+      "@lib/*": ["./lib/*"],
+      "@components/*": ["./lib/components/*"]
+    },
     "typeRoots": ["./support"],
     "jsx": "react-jsx"
   }

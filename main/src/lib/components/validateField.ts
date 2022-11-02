@@ -1,4 +1,4 @@
-import {isEmpty, isTooLong, isEmail, ValueValidator} from './validationFunctions';
+import {isEmpty, isTooLong, isEmail, ValueValidator} from '@components/validationFunctions';
 import {WithValidationProps} from '@components/withValidation';
 /*
 Validation rule will be passed as JSX property for the component that will be validated within the form.
