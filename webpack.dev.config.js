@@ -8,6 +8,8 @@ const PATHS = {
   htmlTemplate: path.resolve(__dirname, './main/src/test-app/app-test-lib.html')
 };
 
+sharedConfig.loaders[0].use.options = {plugins: ['@babel/plugin-proposal-class-properties', 'istanbul']};
+
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
