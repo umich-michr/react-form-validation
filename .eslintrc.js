@@ -20,14 +20,12 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:chai-friendly/recommended',
     'plugin:cypress/recommended',
     'plugin:react/recommended',
     //if using the new JSX transform from React 17 to disable the relevant rules
     'plugin:react/jsx-runtime',
     'plugin:css/recommended',
-    'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier'
