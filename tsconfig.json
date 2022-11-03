@@ -7,18 +7,8 @@
     "dist"
   ],
   "compilerOptions": {
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "target": "es5",
-    "module": "commonjs",
-    "baseUrl": "main/src",
     "outDir": "dist", // Types should go into this directory. Removing this would place the .d.ts files next to the .js files
-    "declaration": true, // Generate d.ts files,
-    "declarationMap": true, // go to js file when using IDE functions like Go to Definition in VSCode,
-    "sourceMap": true,
-    "jsx": "react-jsx",
-    "noEmit": false,
-    "allowJs": true, // Tells TypeScript to read JS files, as normally they are ignored as source files. Process & infer types from .js files.,
+    "baseUrl": "main/src",
     "paths": {
       "@/*": ["./*"],
       "@lib/*": ["./lib/*"],
@@ -32,15 +22,17 @@
       // Transform paths in output .d.ts files (Include this line if you output declarations files)
       { "transform": "typescript-transform-paths", "afterDeclarations": true }
     ],
-    "moduleResolution": "node", // Search under node_modules for non-relative imports.,
-    "skipLibCheck": true, // Import non-ES modules as default imports.
+    "allowJs": true, //webpack config files are js modules and cypress ts config references them
+    "target": "es5",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors": true,
+    "jsx": "react-jsx",
+    "noEmit": false,
+    "declaration": true, // Generate d.ts files,
+    "declarationMap": true, // go to js file when using IDE functions like Go to Definition in VSCode,
+    "sourceMap": true,
+
     "forceConsistentCasingInFileNames": true,
-    "strict": true, // Enable strict settings like strictNullChecks & noImplicitAny.
-    "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true
+    "strict": true // Enable strict settings like strictNullChecks & noImplicitAny.
   }
 }

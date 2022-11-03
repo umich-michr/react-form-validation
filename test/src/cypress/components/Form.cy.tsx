@@ -58,7 +58,7 @@ describe('Feature: Validated form component should be able to validate component
     const textareaRef = useRef();
 
     const [valid, setValid] = useState(false);
-    const handleClick = (e) => {
+    const handleClick = (e: FormEvent<HTMLFormElement>) => {
       setValid(true);
       e.preventDefault();
       e.stopPropagation();
@@ -76,11 +76,16 @@ describe('Feature: Validated form component should be able to validate component
             name='email'
             type='text'
             placeholder='Enter an email'
+            // @ts-ignore
             ref={inputRef}
             dataValidationRules={{email: {value: true}}}
           />
           <br />
-          <ValidatedSelect ref={selectRef} name={'selectNumber'} dataValidationRules={{required: {value: true}}}>
+          <ValidatedSelect
+            // @ts-ignore
+            ref={selectRef}
+            name={'selectNumber'}
+            dataValidationRules={{required: {value: true}}}>
             <option value=''>Choose a number...</option>
             <option value='one'>1</option>
             <option value='Two'>2</option>
@@ -91,6 +96,7 @@ describe('Feature: Validated form component should be able to validate component
           <ValidatedReactSelect
             id={'reactSelectNumber'}
             name={'reactSelectNumber'}
+            // @ts-ignore
             ref={reactSelectRef}
             options={[
               {label: 'Select one option...', value: undefined},
@@ -103,6 +109,7 @@ describe('Feature: Validated form component should be able to validate component
           <ValidatedTextArea
             name='textarea'
             defaultValue='This text is more than 2 characters.'
+            // @ts-ignore
             ref={textareaRef}
             rows={4}
             cols={40}

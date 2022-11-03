@@ -1,16 +1,12 @@
 {
+  "extends": "../../../tsconfig.json",
+  "include": ["../../../main", "../../../test"],
   "compilerOptions": {
-    "target": "es5",
     "lib": ["es5", "dom"],
     "types": ["cypress", "node"],
-    "esModuleInterop": true,
     "baseUrl": "../../../main/src",
-    "paths": {
-      "@/*": ["./*"],
-      "@lib/*": ["./lib/*"],
-      "@components/*": ["./lib/components/*"]
-    },
     "typeRoots": ["./support"],
-    "jsx": "react-jsx"
+    "declaration": false, // Generate d.ts files,
+    "declarationMap": false // go to js file when using IDE functions like Go to Definition in VSCode,
   }
 }

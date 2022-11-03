@@ -42,6 +42,7 @@ module.exports = {
 
     'comma-dangle': 'off',
     '@typescript-eslint/comma-dangle': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
 
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',

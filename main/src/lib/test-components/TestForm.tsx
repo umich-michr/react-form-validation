@@ -41,13 +41,12 @@ export default function TestForm() {
           id={'reactSelectNumber'}
           name={'reactSelectNumber'}
           ref={reactSelectRef}
-          valueSelector={(val) => val.id}
+          valueSelector={(val) => val.id.toString()}
           options={[
             {label: 'Select one option...', id: undefined},
             {label: 'One', id: '1'},
             {label: 'Two', id: '2'}
           ]}
-          /* eslint-disable @typescript-eslint/ban-ts-comment */
           // @ts-ignore
           getOptionLabel={(option) => option.label}
           // @ts-ignore
