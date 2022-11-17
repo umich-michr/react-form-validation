@@ -15,7 +15,8 @@ import FormContext from './FormValidationProvider';
 
 export interface WithValidationProps {
   name: string;
-  valueSelector?: (selectedValue: Record<string, string | number>) => string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  valueSelector?: (selectedValue: any) => any;
   dataValidationRules: ValidationRules;
   onChange?: (params: any) => any;
 }
@@ -26,6 +27,7 @@ export default function withValidation<T extends ElementType>(Component: T | str
     (
       {name, dataValidationRules, valueSelector, onChange, ...props}: ComponentPropsWithRef<T> & PropType,
       ref: ForwardedRef<{
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         element: RefObject<any>;
         validate: (e: FormEvent<HTMLInputElement>) => void;
       }>

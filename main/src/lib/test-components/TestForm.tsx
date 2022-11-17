@@ -41,14 +41,8 @@ export default function TestForm() {
           id={'reactSelectNumber'}
           name={'reactSelectNumber'}
           ref={reactSelectRef}
-          valueSelector={(val) => {
-            if (Array.isArray(val)) {
-              // @ts-ignore
-              return val[0]?.id;
-            } else if (typeof val === 'object') {
-              return val?.id;
-            }
-          }}
+          valueSelector={(val) => (val.id ? val.id.toString() : undefined)}
+          dataValidationRules={{required: {value: true}}}
           options={[
             {label: 'Select one option...', id: undefined},
             {label: 'One', id: '1'},
@@ -58,9 +52,7 @@ export default function TestForm() {
           getOptionLabel={(option) => option.label}
           // @ts-ignore
           getOptionValue={(option) => option.id}
-          dataValidationRules={{required: {value: true}}}
         />
-        <br />
         <button type='submit' value='Submit'>
           Submit
         </button>

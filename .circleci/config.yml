@@ -7,18 +7,31 @@ jobs:
   build-and-test:
     docker:
       - image: cimg/node:18.11.0-browsers
+    working_directory: ~/project
     steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
+      - run:
+          command: mkdir ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          command: GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" git clone git@github.com:umich-michr/validation-functions.git
+      - run:
+          command: GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa" git clone -b bug#28 git@github.com:umich-michr/react-form-validation.git
+      - run:
+          name: install validation function dependencies
+          command: cd validation-functions && npm install
+      - run:
+          name: Install react-form-validation dependencies
+          command: cd react-form-validation && npm uninstall @umich-michr/validation-functions && npm install
+      - run:
+          name: Install validation function as dependency
+          command: cd react-form-validation && npm run install:localPackage --path=../validation-functions --package=@umich-michr/validation-functions
       - run:
           name: Run build (uses webpack prod config)
-          command: npm run build
+          command: cd react-form-validation && npm run build
       - run:
-          name: Run tests (uses webpack dev config)
-          command: npm test
+          name: build and run react-form-validation with validation functions
+          command: cd react-form-validation && npm test
       - store_artifacts:
-          path: build/cypress-coverage
+          path: react-form-validation/build/cypress-coverage
 
 workflows:
   # Inside the workflow, you provide the jobs you want to run, e.g this workflow runs the build-and-test job above.

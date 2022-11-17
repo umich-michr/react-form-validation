@@ -1,4 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {spawnSync} = require('child_process');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const dotenv = require('dotenv');
 
 const colours = {
@@ -73,7 +75,7 @@ if (!params[PATH_COMMAND_ARG_NAME] || !params[PACKAGE_CMD_ARG_NAME]) {
     colours.bg.red,
     colours.fg.yellow,
     'Incorrect usage of command. Use it similar to below\n' +
-      'npm run install:localPackage --path=/Users/vidanda/dev/form-validation-functions --package=@umich-michr/form-validation-functions\n' +
+      'npm run install:localPackage --path=/Users/vidanda/dev/validation-functions --package=@umich-michr/validation-functions\n' +
       'or specify INSTALL_PACKAGE_NAME and INSTALL_PACKAGE_PATH in .env file',
     colours.reset
   );
@@ -81,11 +83,11 @@ if (!params[PATH_COMMAND_ARG_NAME] || !params[PACKAGE_CMD_ARG_NAME]) {
 }
 
 function executeShellCommand(command) {
-  console.log(`executing: ${command}`);
+  console.log(colours.fg.blue, `executing: ${command}`, colours.reset);
   const process = spawnSync(command, {stdio: 'inherit', shell: true});
 
   if (process.status === 0) {
-    console.log(colours.bg.red, colours.fg.yellow, `Executed ${command} successfully`, colours.reset);
+    console.log(colours.fg.green, `Executed ${command} successfully`, colours.reset);
   } else {
     console.error(
       colours.bg.red,
@@ -103,7 +105,9 @@ function buildProject() {
   executeShellCommand(`cd ${params[PATH_COMMAND_ARG_NAME]} && npm run package `);
 }
 function install() {
-  executeShellCommand(`npm install ${params[PATH_COMMAND_ARG_NAME]}/${params[PACKAGE_ARCHIVE_FILE_PATTERN]}`);
+  const archiveFile = `${params[PATH_COMMAND_ARG_NAME]}/${params[PACKAGE_ARCHIVE_FILE_PATTERN]}`;
+  executeShellCommand(`npm install ${archiveFile}`);
+  executeShellCommand(`npx shx rm -rf ${archiveFile}`);
 }
 
 buildProject();
