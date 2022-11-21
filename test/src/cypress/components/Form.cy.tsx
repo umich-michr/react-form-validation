@@ -99,9 +99,9 @@ describe('Feature: Validated form component should be able to validate component
     validReactSelectIndex = 1,
     invalidReactSelectIndex = 0,
     invalidEmailError = 'This value should be a valid email.',
-    invalidSelectNumberError = 'Field is required',
+    invalidSelectNumberError = 'You should have selected a value',
     invalidReactSelectNumberError = 'Field is required',
-    textareaTooLongError = 'This value is too long. It should have 2 characters or fewer.';
+    textareaTooLongError = "You shouldn't have entered more than 2 characters.";
   const App = () => {
     const inputRef = useRef();
     const selectRef = useRef();
@@ -136,7 +136,7 @@ describe('Feature: Validated form component should be able to validate component
             // @ts-ignore
             ref={selectRef}
             name={'selectNumber'}
-            dataValidationRules={{required: {value: true}}}>
+            dataValidationRules={{required: {value: true, errorMessage: invalidSelectNumberError}}}>
             <option value=''>Choose a number...</option>
             <option value='one'>1</option>
             <option value='Two'>2</option>
@@ -179,7 +179,9 @@ describe('Feature: Validated form component should be able to validate component
             ref={textareaRef}
             rows={4}
             cols={40}
-            dataValidationRules={{maxLength: {value: 2}}}
+            dataValidationRules={{
+              maxLength: {value: 2, errorMessage: "You shouldn't have entered more than {value} characters."}
+            }}
           />
           <br />
           <button id='buttonSubmitForm'>Submit form</button>

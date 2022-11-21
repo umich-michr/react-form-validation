@@ -9,9 +9,9 @@ import {
   useImperativeHandle,
   useRef
 } from 'react';
-import {ValidationRules} from './validateField';
 import Error from './Error';
 import FormContext from './FormValidationProvider';
+import {ValidationRules} from '@umich-michr/validation-functions';
 
 export interface WithValidationProps {
   name: string;
