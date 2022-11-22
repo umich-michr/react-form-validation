@@ -96,6 +96,20 @@ describe('Feature: Validated form component should be able to validate component
           <ValidatedReactSelect
             id={'reactSelectNumber'}
             name={'reactSelectNumber'}
+            valueSelector={(val) => {
+              if (Array.isArray(val)) {
+                // @ts-ignore
+                return val[0]?.id;
+              } else if (typeof val === 'number') {
+                // @ts-ignore
+                return val;
+              } else if (typeof val === 'string') {
+                // @ts-ignore
+                return val;
+              } else if (typeof val === 'object') {
+                return val?.id;
+              }
+            }}
             // @ts-ignore
             ref={reactSelectRef}
             options={[

@@ -53,22 +53,17 @@ validations.set(
 );
 
 export default function validateField(
-  value: string | string[] | undefined | null | [Record<string, string | number>],
+  value: string | null | undefined,
   rules: ValidationRules,
   valueSelector: WithValidationProps['valueSelector']
 ): string[] {
   const fieldErrors: string[] = [];
-  let val: string | null | undefined | string[];
+  let val: string | null | undefined;
   if (valueSelector) {
-    if (Array.isArray(value)) {
-      val = (value as [Record<string, string | number>])
-        .filter((v) => !!valueSelector(v))
-        .flatMap((v) => valueSelector(v));
-    } else if (value && typeof value !== 'string') {
-      val = valueSelector(value);
-    } else {
-      val = value;
-    }
+    // @ts-ignore
+    val = valueSelector(value);
+  } else {
+    val = value;
   }
   for (const [ruleName, {value: ruleValue}] of Object.entries(rules)) {
     try {

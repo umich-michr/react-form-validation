@@ -6,7 +6,7 @@ interface ValidationContext {
   errors: Record<string, string[]>;
   validate: (
     name: string,
-    value: string[] | string | undefined | null,
+    value: string | undefined | null,
     rules: ValidationRules,
     valueSelector: WithValidationProps['valueSelector']
   ) => string[];

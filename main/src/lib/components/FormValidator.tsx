@@ -5,7 +5,6 @@ export default function FormValidator(props: {
   children: (ReactNode | ComponentElement<any, any>)[];
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }) {
-  let validForm = true;
   const localErrors = new Map<string, string[]>();
 
   function validateChild(child: ReactNode | ComponentElement<any, any>) {
@@ -44,6 +43,7 @@ export default function FormValidator(props: {
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    let validForm = true;
     e.preventDefault();
     validateFormElements(props.children);
     localErrors.forEach((errorMessages) => {

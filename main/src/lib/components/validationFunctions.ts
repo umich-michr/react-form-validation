@@ -4,7 +4,7 @@ export type ValueValidator = (
 ) => boolean;
 
 function isEmptyString(str: string | null | undefined) {
-  return !str?.trim().length;
+  return !str?.toString().trim().length;
 }
 
 function isEmptyArray(arr: Array<string | number | Date>) {

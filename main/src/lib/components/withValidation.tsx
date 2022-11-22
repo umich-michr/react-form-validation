@@ -51,6 +51,12 @@ export default function withValidation<T extends ElementType>(Component: T | str
         } else if (e.currentTarget && 'value' in e.currentTarget) {
           elementValue = e.currentTarget.value;
         }
+
+        if (props.value) {
+          // @ts-ignore
+          props.value = elementValue;
+        }
+        // @ts-ignore
         return validate(name, elementValue, dataValidationRules, valueSelector);
       };
 
