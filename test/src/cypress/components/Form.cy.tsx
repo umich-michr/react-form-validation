@@ -21,7 +21,7 @@ describe('Feature: Validated form component should be able to handle components 
             <br />
             <button id='buttonSubmitForm'>Submit form</button>
           </Form>
-          <div id='formStatus'>{valid ? 'Form is valid' : null}</div>
+          <div>{valid ? 'Form is valid' : null}</div>
         </section>
       );
     };
@@ -30,11 +30,71 @@ describe('Feature: Validated form component should be able to handle components 
      And <Form> is submitted
      Then validation <Error> message should not be displayed for <input>`, () => {
       cy.mount(<App />);
-      cy.get('#formStatus').should('be.empty');
+      cy.get('form + div').should('be.empty');
 
       cy.get('#buttonSubmitForm').click();
 
-      cy.get('#formStatus').should('have.text', 'Form is valid');
+      cy.get('form + div').should('have.text', 'Form is valid');
+    });
+  });
+});
+
+describe('Feature: Validated input component should do validation even when onchange function is provided', () => {
+  describe('Scenario: Changing a value with an onchange function should trigger validation', () => {
+    const App = () => {
+      const inputRef = useRef() as LegacyRef<HTMLInputElement>;
+
+      const [valid, setValid] = useState(false);
+      const [changed, setChanged] = useState('');
+      const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        setValid(true);
+        e.preventDefault();
+        e.stopPropagation();
+      };
+      const ValidatedInput = withValidation('input');
+      return (
+        <section className='add-service'>
+          <Form onSubmit={handleSubmit}>
+            <ValidatedInput
+              name='input'
+              type='text'
+              placeholder='Enter an email'
+              // @ts-ignore
+              ref={inputRef}
+              onChange={() => setChanged('Enter an email')}
+              dataValidationRules={{email: {value: true}}}
+            />
+            <br />
+            <button id='buttonSubmitForm'>Submit form</button>
+          </Form>
+          <div>
+            <ul>
+              {valid ? <li>Form is valid</li> : null}
+              {changed ? <li>Onchange is triggered for {changed}</li> : null}
+            </ul>
+          </div>
+        </section>
+      );
+    };
+
+    it(`Given form contains an  <input> element with validation rule and onchange function
+     And invalid value is entered
+     Then validation <Error> message should be displayed for <input>
+     And valid value is entered
+     Then validation <Error> message should be displayed for <input>`, () => {
+      cy.mount(<App />);
+      cy.get('form + div').should('not.have.text');
+
+      cy.get('[name=input]').clear().type('q');
+
+      cy.get('form + div').contains('Form is valid').should('not.exist');
+      cy.get('form + div').contains('Onchange is triggered for Enter an email');
+
+      cy.get('#error-input').should('have.text', 'This value should be a valid email.');
+
+      cy.get('[name=input]').clear().type('ab@cd.com');
+
+      cy.get('#error-input').should('not.exist');
     });
   });
 });
@@ -168,7 +228,20 @@ describe('Feature: Validated form component should be able to validate component
               {label: 'One', value: '1'},
               {label: 'Two', value: '2'}
             ]}
-            valueSelector={(option) => option?.value?.toString()}
+            valueSelector={(val) => {
+              if (Array.isArray(val)) {
+                // @ts-ignore
+                return val[0]?.id;
+              } else if (typeof val === 'number') {
+                // @ts-ignore
+                return val;
+              } else if (typeof val === 'string') {
+                // @ts-ignore
+                return val;
+              } else if (typeof val === 'object') {
+                return val?.id;
+              }
+            }}
             dataValidationRules={{required: {value: true}}}
           />
           <br />
@@ -180,6 +253,8 @@ describe('Feature: Validated form component should be able to validate component
             rows={4}
             cols={40}
             dataValidationRules={{
+              // @ts-ignore
+              nonExistentRule: {something: true},
               maxLength: {value: 2, errorMessage: "You shouldn't have entered more than {value} characters."}
             }}
           />
@@ -192,7 +267,7 @@ describe('Feature: Validated form component should be able to validate component
   };
 
   describe('Scenario: Submit Form with validated components', () => {
-    it.only(`Given form contains an <input/> element with email validation rule
+    it(`Given form contains an <input/> element with email validation rule
       And <select/> element with a required validation rule
       And react-select element with a required validation rule
       And <textarea/> element with a maxLength validation rule

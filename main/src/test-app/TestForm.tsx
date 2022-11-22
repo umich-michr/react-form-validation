@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
-import {Form, withValidation} from '../index';
+import {Form, withValidation} from '../lib';
 import {FormEvent, useRef} from 'react';
 import {default as ReactSelect} from 'react-select';
 
 function handleSubmit(e: FormEvent<HTMLFormElement>) {
-  console.log('submit clicked');
   e.stopPropagation();
 }
 
@@ -12,7 +10,7 @@ export default function TestForm() {
   const firstNameRef = useRef({
     element: useRef(),
     validate: () => {
-      console.log('hi');
+      return;
     }
   });
   const ValidatedInput = withValidation('input');
@@ -20,7 +18,7 @@ export default function TestForm() {
   const reactSelectRef = useRef({
     element: useRef(),
     validate: () => {
-      console.log('hi');
+      return;
     }
   });
 
@@ -41,7 +39,20 @@ export default function TestForm() {
           id={'reactSelectNumber'}
           name={'reactSelectNumber'}
           ref={reactSelectRef}
-          valueSelector={(val) => (val.id ? val.id.toString() : undefined)}
+          valueSelector={(val) => {
+            if (Array.isArray(val)) {
+              // @ts-ignore
+              return val[0]?.id;
+            } else if (typeof val === 'number') {
+              // @ts-ignore
+              return val;
+            } else if (typeof val === 'string') {
+              // @ts-ignore
+              return val;
+            } else if (typeof val === 'object') {
+              return val?.id;
+            }
+          }}
           dataValidationRules={{required: {value: true}}}
           options={[
             {label: 'Select one option...', id: undefined},

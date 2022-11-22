@@ -92,7 +92,8 @@ function executeShellCommand(command) {
     console.error(
       colours.bg.red,
       colours.fg.yellow,
-      `Error while trying to uninstall: ${Error(process.stderr)},colours.reset`
+      `Error while trying to uninstall: ${Error(process.stderr)},`,
+      colours.reset
     );
     process.exit(process.status);
   }

@@ -114,6 +114,6 @@
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "@umich-michr/validation-functions": "file:../../../Downloads/validation-functions/umich-michr-validation-functions-1.0.0.tgz"
+    "@umich-michr/validation-functions": "file:../validation-functions/umich-michr-validation-functions-1.0.0.tgz"
   }
 }

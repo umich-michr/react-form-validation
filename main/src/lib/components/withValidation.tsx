@@ -16,9 +16,9 @@ import {ValidationRules} from '@umich-michr/validation-functions';
 export interface WithValidationProps {
   name: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  valueSelector?: (selectedValue: any) => any;
+  valueSelector?: (val: any) => any;
   dataValidationRules: ValidationRules;
-  onChange?: (params: any) => any;
+  onChange?: (params: unknown) => unknown;
 }
 type PropType = WithValidationProps & {value?: string; getValue?: () => string};
 
@@ -34,8 +34,6 @@ export default function withValidation<T extends ElementType>(Component: T | str
     ) => {
       const element = useRef<PropType>({} as PropType);
 
-      //TODO: Pass validate in props and if not passed use the one coming from context, otherwise use the one coming from props.
-      //since on form submission we will call the validate function exposed by ref we should be able to validate any component through validate function
       const {errors, validate, errorClassName} = useContext(FormContext);
       const validateField = () => {
         let elementValue;
@@ -54,10 +52,9 @@ export default function withValidation<T extends ElementType>(Component: T | str
         } else if (e.currentTarget && 'value' in e.currentTarget) {
           elementValue = e.currentTarget.value;
         }
-        if (props.onChange) {
-          props.onChange();
+        if (onChange) {
+          onChange();
         }
-        // @ts-ignore
         return validate(name, elementValue, dataValidationRules, valueSelector);
       };
 
