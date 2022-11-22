@@ -17,13 +17,14 @@ export interface WithValidationProps {
   name: string;
   valueSelector?: (selectedValue: Record<string, string | number>) => string;
   dataValidationRules: ValidationRules;
+  onChange?: (params: any) => any;
 }
 type PropType = WithValidationProps & {value?: string; getValue?: () => string};
 
 export default function withValidation<T extends ElementType>(Component: T | string) {
   const ValidatedComponent = forwardRef(
     (
-      {name, dataValidationRules, valueSelector, ...props}: ComponentPropsWithRef<T> & PropType,
+      {name, dataValidationRules, valueSelector, onChange, ...props}: ComponentPropsWithRef<T> & PropType,
       ref: ForwardedRef<{
         element: RefObject<any>;
         validate: (e: FormEvent<HTMLInputElement>) => void;
@@ -51,10 +52,8 @@ export default function withValidation<T extends ElementType>(Component: T | str
         } else if (e.currentTarget && 'value' in e.currentTarget) {
           elementValue = e.currentTarget.value;
         }
-
-        if (props.value) {
-          // @ts-ignore
-          props.value = elementValue;
+        if (props.onChange) {
+          props.onChange();
         }
         // @ts-ignore
         return validate(name, elementValue, dataValidationRules, valueSelector);

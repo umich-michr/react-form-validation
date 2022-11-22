@@ -39,6 +39,57 @@ describe('Feature: Validated form component should be able to handle components 
   });
 });
 
+describe('Feature: Validated input component should do validation even when onchange function is provided', () => {
+  describe('Scenario: Changing a value with an onchange function should trigger validation', () => {
+    const App = () => {
+      const inputRef = useRef() as LegacyRef<HTMLInputElement>;
+
+      const [valid, setValid] = useState(false);
+      const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        setValid(true);
+        e.preventDefault();
+        e.stopPropagation();
+      };
+      const ValidatedInput = withValidation('input');
+      return (
+        <section className='add-service'>
+          <Form onSubmit={handleSubmit}>
+            <ValidatedInput
+              name='input'
+              type='text'
+              placeholder='Enter an email'
+              // @ts-ignore
+              ref={inputRef}
+              onChange={() => console.log('hi')}
+              dataValidationRules={{email: {value: true}}}
+            />
+            <br />
+            <button id='buttonSubmitForm'>Submit form</button>
+          </Form>
+          <div id='formStatus'>{valid ? 'Form is valid' : null}</div>
+        </section>
+      );
+    };
+
+    it(`Given form contains an  <input> element with validation rule and onchange function
+     And invalid value is entered
+     Then validation <Error> message should be displayed for <input>
+     And valid value is entered
+     Then validation <Error> message should be displayed for <input>`, () => {
+      cy.mount(<App />);
+      cy.get('#formStatus').should('be.empty');
+
+      cy.get('[name=input]').clear().type('q');
+
+      cy.get('#error-input').should('have.text', 'This value should be a valid email.');
+
+      cy.get('[name=input]').clear().type('ab@cd.com');
+
+      cy.get('#error-input').should('not.exist');
+    });
+  });
+});
+
 describe('Feature: Validated form component should be able to validate components requiring validations by specifying dataValidationRules attribute. (HOC is used to create validated components', () => {
   const errorClassName = 'field-error-text filled';
   const validEmail = 'johndoe@gmail.com',
