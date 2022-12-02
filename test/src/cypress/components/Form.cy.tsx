@@ -207,41 +207,19 @@ describe('Feature: Validated form component should be able to validate component
           <ValidatedReactSelect
             id={'reactSelectNumber'}
             name={'reactSelectNumber'}
-            valueSelector={(val) => {
-              if (Array.isArray(val)) {
-                // @ts-ignore
-                return val[0]?.id;
-              } else if (typeof val === 'number') {
-                // @ts-ignore
-                return val;
-              } else if (typeof val === 'string') {
-                // @ts-ignore
-                return val;
-              } else if (typeof val === 'object') {
-                return val?.id;
-              }
-            }}
+            isMulti
+            valueSelector={(val) => (Array.isArray(val) ? val[0]?.id : val?.id)}
             // @ts-ignore
             ref={reactSelectRef}
             options={[
-              {label: 'Select one option...', value: undefined},
-              {label: 'One', value: '1'},
-              {label: 'Two', value: '2'}
+              {text: 'Select one option...', id: undefined},
+              {text: 'One', id: '1'},
+              {text: 'Two', id: '2'}
             ]}
-            valueSelector={(val) => {
-              if (Array.isArray(val)) {
-                // @ts-ignore
-                return val[0]?.id;
-              } else if (typeof val === 'number') {
-                // @ts-ignore
-                return val;
-              } else if (typeof val === 'string') {
-                // @ts-ignore
-                return val;
-              } else if (typeof val === 'object') {
-                return val?.id;
-              }
-            }}
+            // @ts-ignore
+            getOptionLabel={(option) => option.text}
+            // @ts-ignore
+            getOptionValue={(option) => option.id}
             dataValidationRules={{required: {value: true}}}
           />
           <br />
