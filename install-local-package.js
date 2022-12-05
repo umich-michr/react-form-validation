@@ -69,6 +69,7 @@ function buildParams() {
 }
 
 const params = buildParams();
+const archiveFile = `${params[PATH_COMMAND_ARG_NAME]}/${params[PACKAGE_ARCHIVE_FILE_PATTERN]}`;
 
 if (!params[PATH_COMMAND_ARG_NAME] || !params[PACKAGE_CMD_ARG_NAME]) {
   console.error(
@@ -95,6 +96,9 @@ function executeShellCommand(command) {
       `Error while trying to uninstall: ${Error(process.stderr)},`,
       colours.reset
     );
+    if (command.includes('rm -rf')) {
+      process.exit(0);
+    }
     process.exit(process.status);
   }
   return process.status;
@@ -103,12 +107,11 @@ function uninstallLocally() {
   executeShellCommand(`npm uninstall ${params[PACKAGE_CMD_ARG_NAME]}`);
 }
 function buildProject() {
+  executeShellCommand(`npx shx rm -rf ${archiveFile}`);
   executeShellCommand(`cd ${params[PATH_COMMAND_ARG_NAME]} && npm run package `);
 }
 function install() {
-  const archiveFile = `${params[PATH_COMMAND_ARG_NAME]}/${params[PACKAGE_ARCHIVE_FILE_PATTERN]}`;
   executeShellCommand(`npm install ${archiveFile}`);
-  executeShellCommand(`npx shx rm -rf ${archiveFile}`);
 }
 
 buildProject();
