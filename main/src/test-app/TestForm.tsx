@@ -75,8 +75,9 @@ export default function TestForm() {
           getOptionLabel={(option) => option.label}
           // @ts-ignore
           getOptionValue={(option) => option.id}
-          onChange={(e) => {
+          onChange={() => {
             // @ts-ignore
+            // eslint-disable-next-line no-console
             console.debug('Hi: ', this);
           }}
         />
