@@ -317,7 +317,7 @@ describe('Feature: Validated form component should be able to validate component
 
       cy.get('#reactSelectCar').reactSelect(validReactSelectIndex);
       cy.get('#error-reactSelectCar').should('not.exist');
-      cy.get('*[class^="css-xb97g8"]').click({multiple: true});
+      cy.get('*[class$="-MultiValueRemove"]').click({multiple: true});
       cy.get('#error-reactSelectCar').should('have.text', fieldRequiredError);
     });
   });
