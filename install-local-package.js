@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const {spawnSync} = require('child_process');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -54,12 +55,13 @@ function readArgsFromCommandLine() {
     return parseCmdLineArgs(argsIterator, args);
   }
 
+  // noinspection JSValidateTypes
   return parseCmdLineArgs(process.argv[Symbol.iterator]());
 }
 
 function buildParams() {
   const cmdLineArgs = readArgsFromCommandLine();
-  const env = dotenv.config('./env').parsed;
+  const env = dotenv.config({path: './.env'}).parsed;
   const pkg = cmdLineArgs[PACKAGE_CMD_ARG_NAME] || env[PACKAGE_ENV_KEY];
   return {
     [PACKAGE_CMD_ARG_NAME]: pkg,
@@ -90,16 +92,13 @@ function executeShellCommand(command) {
   if (process.status === 0) {
     console.log(colours.fg.green, `Executed ${command} successfully`, colours.reset);
   } else {
+    // noinspection JSCheckFunctionSignatures
     console.error(
       colours.bg.red,
       colours.fg.yellow,
       `Error while trying to uninstall: ${Error(process.stderr)},`,
       colours.reset
     );
-    if (command.includes('rm -rf')) {
-      process.exit(0);
-    }
-    process.exit(process.status);
   }
   return process.status;
 }
