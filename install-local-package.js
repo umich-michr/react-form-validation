@@ -103,14 +103,14 @@ function executeShellCommand(command) {
   return process.status;
 }
 function uninstallLocally() {
-  executeShellCommand(`npm uninstall ${params[PACKAGE_CMD_ARG_NAME]}`);
+  executeShellCommand(`npm uninstall ${params[PACKAGE_CMD_ARG_NAME]} -f`);
 }
 function buildProject() {
   executeShellCommand(`npx shx rm -rf ${archiveFile}`);
   executeShellCommand(`cd ${params[PATH_COMMAND_ARG_NAME]} && npm run package `);
 }
 function install() {
-  executeShellCommand(`npm install ${archiveFile}`);
+  executeShellCommand(`npm install ${archiveFile} -f`);
 }
 
 buildProject();
