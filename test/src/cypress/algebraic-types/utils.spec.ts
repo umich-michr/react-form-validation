@@ -6,12 +6,12 @@ describe('Currying is a transformation of functions, which translates a function
     const actual = curry(() => {});
     expect(actual).not.to.throw(Error);
   });
-  xit('When 4 argument function is passed Then the resulting function should return one function argument each time when called and the 4th function should return the result.', () => {
+  it('When 4 argument function is passed Then the resulting function should return one function argument each time when called and the 4th function should return the result.', () => {
     const add4 = (a: number, b: number, c: number, d: number) => {
       return a + b + c + d;
     };
     const actual = curry(add4);
-    expect(actual(1)(2)(3)(4)).to.equal(add4(+1, +2, +3, +4));
+    expect(actual(1)(2)(3)(4)).to.equal(add4(1, 2, 3, 4));
   });
 });
 

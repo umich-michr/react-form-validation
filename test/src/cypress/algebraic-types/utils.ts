@@ -3,7 +3,7 @@ export function curry(func: Function) {
   // @ts-ignore
   return function curried(...args: any) {
     if (args.length >= func.length) {
-      return func.apply(args);
+      return func.apply(null, args);
     } else {
       return curried.bind(null, ...args);
     }

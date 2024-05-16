@@ -17,5 +17,5 @@
     "**/*.test.{js,cjs,mjs,ts}",
     "**/*.cy.{js,cjs,mjs,ts}"
   ],
-  "reporter": ["lcov", "json", "text"]
+  "reporter": ["lcov", "json"]
 }

@@ -1,4 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/umich-michr/react-form-validation/tree/main.svg?style=svg&circle-token=d73be01f2005694dfb3f93dd5720acea56fa1878)](https://dl.circleci.com/status-badge/redirect/gh/umich-michr/react-form-validation/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/umich-michr/react-form-validation/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/umich-michr/react-form-validation/tree/main)
 
 ### Commit Messages
 

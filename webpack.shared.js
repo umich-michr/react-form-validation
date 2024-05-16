@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const tsConfigPath = path.resolve(__dirname, './tsconfig.json');
 //Use this to load modules whose location is specified in the paths section of tsconfig.json when using webpack.

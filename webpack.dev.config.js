@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/no-var-requires: "off" */
 const path = require('path');
 const sharedConfig = require(path.resolve(__dirname, './webpack.shared'));
 const HtmlWebpackPlugin = require('html-webpack-plugin');

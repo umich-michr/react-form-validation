@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {defineConfig} from 'cypress';
 import find from 'find-process';
+// @ts-ignore
 import webpackConfigComponentTests from './webpack.dev.config.js';
 import registerCodeCoverageTasks from '@cypress/code-coverage/task';
 import PluginEvents = Cypress.PluginEvents;
@@ -56,7 +57,7 @@ export default defineConfig({
   },
   video: false,
   component: {
-    specPattern: 'test/src/cypress/components/*.cy.{ts,tsx}',
+    specPattern: 'test/src/cypress/{algebraic-types,components}/*.{cy,spec}.{ts,tsx}',
     supportFile: 'test/src/cypress/support/component.ts',
     indexHtmlFile: 'test/src/cypress/support/component-index.html',
     devServer: {
